@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Is Safari?</title>
+  </head>
+  <body>
+    <h1>Is Safari?</h1>
+    <ul id="results"></ul>
+    <script>
+      (function () {
+        var results = document.getElementById("results");
+
+        add(`UA: ${navigator.userAgent}`);
+        add(`Platform: ${navigator.platform}`);
+        add(`Is Safari?: ${isSafari()}`);
+
+        function add(message) {
+          const li = document.createElement("li");
+          li.innerText = message;
+          results.appendChild(li);
+        }
+        function isSafari() {
+          try {
+            const ua = navigator.userAgent;
+            if (ua.match(/iPhone|iPod|iPad/)) {
+              return true;
+            }
+
+            if (
+              ua.match(/Mac OS/) &&
+              !ua.match(/Chrome\//) &&
+              ua.match(/Safari\//) &&
+              ua.match(/Version\//)
+            ) {
+              return true;
+            }
+
+            return false;
+          } catch (ex) {
+            console.error("[NAUTILUS] error checking if safari: ", ex);
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
